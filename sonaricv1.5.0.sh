@@ -32,3 +32,13 @@ execute_and_prompt "Restarting sonaric node..." "sudo systemctl restart sonaricd
 echo
 execute_and_prompt "Checking sonaric node status..." "sudo systemctl status sonaricd"
 echo
+
+# 방화벽오픈
+execute_and_prompt "Allowing UFW ports 44003 to 44006..." "
+sudo ufw allow 44003
+sudo ufw allow 44004
+sudo ufw allow 44005
+sudo ufw allow 44006
+"
+echo
+
