@@ -44,7 +44,7 @@ echo
 
 # 1. UFW 설치 및 포트 개방
 execute_and_prompt "UFW를 설치합니다..." "sudo apt-get install -y ufw"
-execute_and_prompt "UFW를 활성화합니다..." "sudo ufw enable"
+execute_and_prompt "UFW를 활성화합니다...반응이 없으면 엔터를 누르세요" "sudo ufw enable"
 execute_and_prompt "UFW를 통해 필요한 포트를 개방합니다..." \
     "sudo ufw allow 44003/tcp && \
      sudo ufw allow 44004/tcp && \
@@ -61,9 +61,12 @@ echo -e "${RED}2. Sonaric ID를 저장하시겠습니까? (y/N):${NC}"
 echo -e "${YELLOW}y를 선택하고 비밀번호를 설정하세요.${NC}"
 
 # 2. Sonaric 설치 스크립트 실행
-execute_with_prompt "Sonaric 설치 스크립트를 실행합니다..." "./sonaric.sh"
+execute_with_prompt "Sonaric 설치 스크립트를 실행합니다..." "wget https://github.com/KangJKJK/Sonaric-node/blob/main/sonaricv1.5.0.sh && chmod +x sonaric.sh"
+echo "Sonaric 구성 설정 중 (사용자 입력 필요)..."
+# `stdbuf`를 사용하여 명령어의 출력을 실시간으로 처리합니다.
+stdbuf -i0 -o0 -e0 ./sonaric.sh
 
-# 구동 확인
+# 3구동 확인
 execute_with_prompt "Sonaric 노드 상태를 확인합니다..." "sonaric node-info"
 
 echo -e "${YELLOW}모든 작업이 완료되었습니다. 컨트롤+A+D로 스크린을 종료해주세요.${NC}"
