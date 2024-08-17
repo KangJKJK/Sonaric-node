@@ -52,12 +52,12 @@ execute_and_prompt "UFW를 통해 필요한 포트를 개방합니다..." \
      sudo ufw allow 44006/tcp"
 
 # 사용자 안내 메시지
-echo -e "${RED}설치 스크립트를 실행하면 다음과 같은 안내 메시지가 나옵니다:${NC}"
+echo -e "${GREEN}설치 스크립트를 실행하면 다음과 같은 안내 메시지가 나옵니다:${NC}"
 
-echo -e "${RED}1. Sonaric 노드 이름을 변경하시겠습니까? (y/N):${NC}"
+echo -e "${GREEN}1. Sonaric 노드 이름을 변경하시겠습니까? (y/N):${NC}"
 echo -e "${YELLOW}y를 선택하고 노드 이름을 설정하세요.${NC}"
 
-echo -e "${RED}2. Sonaric ID를 저장하시겠습니까? (y/N):${NC}"
+echo -e "${GREEN}2. Sonaric ID를 저장하시겠습니까? (y/N):${NC}"
 echo -e "${YELLOW}y를 선택하고 비밀번호를 설정하세요.${NC}"
 
 # 2. Sonaric 설치 스크립트 실행
