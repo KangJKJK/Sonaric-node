@@ -63,4 +63,4 @@ execute_with_prompt "Sonaric 노드 상태를 확인합니다..." "sonaric node-
 
 echo -e "${YELLOW}모든 작업이 완료되었습니다. 컨트롤+A+D로 스크린을 종료해주세요.${NC}"
 echo -e "${GREEN}반드시 디스코드와 연동을 해야 합니다. 텔레그램을 확인하세요.${NC}"
-echo -e "${GREEN}스크립트 작성자: kangjk${NC}"
+echo -e "${GREEN}스크립트 작성자:https://t.me/kjkresearch${NC}"
