@@ -37,6 +37,11 @@ execute_with_prompt() {
     fi
 }
 
+# 안내 메시지
+echo -e "${YELLOW}설치 도중 문제가 발생하면 다음 명령어를 입력하고 다시 시도하세요:${NC}"
+echo -e "${YELLOW}sudo rm -f /root/sonaricv1.5.0.sh${NC}"
+echo
+
 # 1. UFW 설치 및 포트 개방
 execute_and_prompt "UFW를 설치합니다..." "sudo apt-get install -y ufw"
 execute_and_prompt "UFW를 활성화합니다..." "sudo ufw enable"
