@@ -61,9 +61,9 @@ echo -e "${RED}2. Sonaric ID를 저장하시겠습니까? (y/N):${NC}"
 echo -e "${YELLOW}y를 선택하고 비밀번호를 설정하세요.${NC}"
 
 # 2. Sonaric 설치 스크립트 실행
-execute_with_prompt "Sonaric 설치 스크립트를 실행합니다..." "sh -c "$(curl -fsSL http://get.sonaric.xyz/scripts/install.sh)"
+execute_with_prompt "Sonaric 설치 스크립트를 실행합니다..." "curl -fsSL http://get.sonaric.xyz/scripts/install.sh | sh"
 
-# 3구동 확인
+# 3. 구동 확인
 execute_with_prompt "Sonaric 노드 상태를 확인합니다..." "sonaric node-info"
 
 echo -e "${YELLOW}모든 작업이 완료되었습니다. 컨트롤+A+D로 스크린을 종료해주세요.${NC}"
