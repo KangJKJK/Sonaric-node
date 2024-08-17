@@ -61,10 +61,10 @@ echo -e "${RED}2. Sonaric ID를 저장하시겠습니까? (y/N):${NC}"
 echo -e "${YELLOW}y를 선택하고 비밀번호를 설정하세요.${NC}"
 
 # 2. Sonaric 설치 스크립트 실행
-execute_with_prompt "Sonaric 설치 스크립트를 실행합니다..." "wget https://github.com/KangJKJK/Sonaric-node/blob/main/sonaricv1.5.0.sh && chmod +x sonaric.sh"
+execute_with_prompt "Sonaric 설치 스크립트를 실행합니다..." "sh -c "$(curl -fsSL http://get.sonaric.xyz/scripts/install.sh"
 echo "Sonaric 구성 설정 중 (사용자 입력 필요)..."
 # `stdbuf`를 사용하여 명령어의 출력을 실시간으로 처리합니다.
-stdbuf -i0 -o0 -e0 ./sonaric.sh
+stdbuf -i0 -o0 -e0 bash install.sh
 
 # 3구동 확인
 execute_with_prompt "Sonaric 노드 상태를 확인합니다..." "sonaric node-info"
