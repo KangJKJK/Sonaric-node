@@ -25,7 +25,7 @@ execute_with_prompt() {
         echo -e "${RED}Detailed Error Message:${NC}"
         echo "$output" | sed 's/^/  /'  # 상세 오류 메시지를 들여쓰기하여 출력
         echo
-
+        
         # 사용자에게 계속 진행할지 묻기
         read -p "오류가 발생했습니다. 계속 진행하시겠습니까? (Y/N): " response
         if [[ ! "$response" =~ ^[Yy]$ ]]; then
