@@ -38,84 +38,19 @@ execute_with_prompt() {
 }
 
 # 안내 메시지
-echo -e "${YELLOW}설치 도중 문제가 발생하면 다음 명령어를 입력하고 다시 시도하세요:${NC}"
-echo -e "${YELLOW}sudo rm -f /root/sonaricv1.5.0.sh${NC}"
-echo
-#!/bin/bash
-
-# 최적화 스크립트
-
-echo -e "${GREEN}시스템 최적화 작업을 시작합니다.${NC}"
-
-# 불필요한 패키지 자동 제거
-echo -e "${GREEN}불필요한 패키지 자동 제거 중...${NC}"
-sudo apt autoremove -y
-
-# .deb 파일 삭제
-echo -e "${GREEN}.deb 파일 삭제 중...${NC}"
-sudo rm /root/*.deb
-
-# 패키지 캐시 정리
-echo -e "${GREEN}패키지 캐시 정리 중...${NC}"
-sudo apt-get clean
-
-# /tmp 디렉토리 비우기
-echo -e "${GREEN}/tmp 디렉토리 비우기 중...${NC}"
-sudo rm -rf /tmp/*
-
-# 사용자 캐시 비우기
-echo -e "${GREEN}사용자 캐시 비우기 중...${NC}"
-rm -rf ~/.cache/*
-
-# .sh 및 .rz 파일 삭제
-echo -e "${GREEN}.sh 및 .rz 파일 삭제 중...${NC}"
-sudo rm -f /root/*.sh /root/*.rz
-
-# Docker가 설치되어 있는지 확인
-if command -v docker >/dev/null 2>&1; then
-    echo -e "${GREEN}Docker가 설치되어 있습니다. Docker 관련 작업을 수행합니다.${NC}"
-
-    # Docker 로그 정리 스크립트 작성
-    echo -e "${GREEN}Docker 로그 정리 스크립트 작성 중...${NC}"
-    echo -e '#!/bin/bash\ndocker ps -q | xargs -I {} docker logs --tail 0 {} > /dev/null' | sudo tee /usr/local/bin/docker-log-cleanup.sh
-    sudo chmod +x /usr/local/bin/docker-log-cleanup.sh
-
-    # Docker 로그 정리 작업을 크론에 추가
-    echo -e "${GREEN}크론 작업 추가 중...${NC}"
-    (crontab -l ; echo '0 0 * * * /usr/local/bin/docker-log-cleanup.sh') | sudo crontab -
-
-    # 중지된 모든 컨테이너 제거
-    echo -e "${GREEN}중지된 모든 컨테이너 제거 중...${NC}"
-    sudo docker container prune -f
-
-    # 사용하지 않는 모든 이미지 제거
-    echo -e "${GREEN}사용하지 않는 모든 이미지 제거 중...${NC}"
-    sudo docker image prune -a -f
-
-    # 사용하지 않는 모든 볼륨 제거
-    echo -e "${GREEN}사용하지 않는 모든 볼륨 제거 중...${NC}"
-    sudo docker volume prune -f
-
-    # 사용하지 않는 모든 데이터 정리
-    echo -e "${GREEN}사용하지 않는 모든 데이터 정리 중...${NC}"
-    sudo docker system prune -a -f
-else
-    echo -e "${RED}Docker가 설치되어 있지 않습니다. Docker 관련 작업을 생략합니다.${NC}"
-fi
-
-echo -e "${GREEN}시스템 최적화 작업이 완료되었습니다.${NC}"
+echo -e "${GREEN}Sonaric node 설치를 시작합니다.:${NC}"
 
 # 1. UFW 설치 및 포트 개방
-execute_and_prompt "UFW를 설치합니다..." "sudo apt-get install -y ufw"
-execute_and_prompt "UFW를 활성화합니다...반응이 없으면 엔터를 누르세요" "sudo ufw enable"
-execute_and_prompt "UFW를 통해 필요한 포트를 개방합니다..." \
+execute_and_prompt "UFW를 설치합니다." "sudo apt-get install -y ufw"
+execute_and_prompt "UFW를 활성화합니다.엔터를 누르세요" "sudo ufw enable"
+execute_and_prompt "UFW를 통해 필요한 포트를 개방합니다." \
     "sudo ufw allow 44003/tcp && \
      sudo ufw allow 44004/tcp && \
      sudo ufw allow 44005/tcp && \
      sudo ufw allow 44006/tcp"
 
 # 사용자 안내 메시지
-echo -e "${GREEN}설치 스크립트를 실행하면 다음과 같은 안내 메시지가 나옵니다:${NC}"
+echo -e "${GREEN}설치 중 다음과 같은 안내 메시지가 나옵니다:${NC}"
 
 echo -e "${GREEN}1. Sonaric 노드 이름을 변경하시겠습니까? (y/N):${NC}"
 echo -e "${YELLOW}y를 선택하고 노드 이름을 설정하세요.${NC}"
@@ -129,6 +64,12 @@ execute_with_prompt "Sonaric 설치 스크립트를 실행합니다..." "curl -f
 # 3. 구동 확인
 execute_with_prompt "Sonaric 노드 상태를 확인합니다..." "sonaric node-info"
 
+# 4. 디스코드 연동
+echo -e "${GREEN}2개이상의 노드를 디스코드와 연동할 수 있습니다.${NC}"
+echo -e "${GREEN}디스코드로 이동하여 /addnode 명령어를 입력합니다.${NC}"
+read -p "디스코드에서 나오는 당신의 verification code를 입력하세요: " CODE
+sonaric node-register "$CODE"
+
 echo -e "${YELLOW}모든 작업이 완료되었습니다. 컨트롤+A+D로 스크린을 종료해주세요.${NC}"
-echo -e "${GREEN}반드시 디스코드와 연동을 해야 합니다. 텔레그램을 확인하세요.${NC}"
+echo -e "${GREEN}디스코드 역할을 부여받게되면 디스코드에서 /nodes 로 현재상태를 알 수 있습니다.${NC}"
 echo -e "${GREEN}스크립트 작성자:https://t.me/kjkresearch${NC}"
