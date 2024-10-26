@@ -62,6 +62,8 @@ echo -e "${YELLOW}y를 선택하고 비밀번호를 설정하세요.${NC}"
 execute_with_prompt "Sonaric 설치 스크립트를 실행합니다..." "curl -fsSL http://get.sonaric.xyz/scripts/install.sh | sh"
 
 # 3. 구동 확인
+apt-get update
+apt-get install sonaricd sonaric
 execute_with_prompt "Sonaric 노드 상태를 확인합니다..." "sonaric node-info"
 
 # 4. 디스코드 연동
