@@ -73,5 +73,5 @@ read -p "디스코드에서 나오는 당신의 verification code를 입력하�
 sonaric node-register "$CODE"
 
 echo -e "${YELLOW}모든 작업이 완료되었습니다. 컨트롤+A+D로 스크린을 종료해주세요.${NC}"
-echo -e "${GREEN}디스코드 역할을 부여받게되면 디스코드에서 /nodes 로 현재상태를 알 수 있습니다.${NC}"
+echo -e "${GREEN}대시보드: https://tracker.sonaric.xyz/${NC}"
 echo -e "${GREEN}스크립트 작성자:https://t.me/kjkresearch${NC}"
