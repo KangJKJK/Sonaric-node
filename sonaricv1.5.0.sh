@@ -41,13 +41,11 @@ execute_with_prompt() {
 echo -e "${GREEN}Sonaric node 설치를 시작합니다.:${NC}"
 
 # 1. UFW 설치 및 포트 개방
-execute_and_prompt "UFW를 설치합니다." "sudo apt-get install -y ufw"
-execute_and_prompt "UFW를 활성화합니다.엔터를 누르세요" "sudo ufw enable"
-execute_and_prompt "UFW를 통해 필요한 포트를 개방합니다." \
-    "sudo ufw allow 44003/tcp && \
-     sudo ufw allow 44004/tcp && \
-     sudo ufw allow 44005/tcp && \
-     sudo ufw allow 44006/tcp"
+echo -e "${YELLOW}UFW를 활성화합니다.:${NC}"
+sudo ufw allow 44003/tcp
+sudo ufw allow 44004/tcp
+sudo ufw allow 44005/tcp
+sudo ufw allow 44006/tcp
 
 # 사용자 안내 메시지
 echo -e "${GREEN}설치 중 다음과 같은 안내 메시지가 나옵니다:${NC}"
